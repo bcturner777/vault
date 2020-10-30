@@ -1,0 +1,17 @@
+# docker_compose.yml
+version: '3.8'
+
+services:
+
+    vault:
+      image: vault:latest
+      container_name: myvault
+      restart: always
+      ports:
+        - "127.0.0.1:8200:8200"
+      volumes:
+        - ./vault/config:/vault/config
+        - ./vault/data:/vault/data
+      cap_add:
+        - IPC_LOCK
+      command: vault server -config=/vault/config/config.hcl
